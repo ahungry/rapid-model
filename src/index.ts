@@ -54,6 +54,7 @@ const genModelFn = (key: string, iter: number) => {
       const pmax = _.get(prop, 'maximum', undefined)
       const ptype = _.get(prop, 'type', 'any')
       let type: string = ''
+      let oq = '' // Add quoting around strings.
 
       if (['integer'].includes(ptype)) {
         type = 'number'
@@ -61,14 +62,16 @@ const genModelFn = (key: string, iter: number) => {
 
       if (['string'].includes(ptype)) {
         type = 'string'
+        oq = pdef !== undefined ? `'` : ''
       }
 
       return {
-        construct: `protected ${prop.name}: ${type} = ${pdef},`,
-        getters: `public get${prop.name.substr(0, 1).toUpperCase()}${prop.name.substr(1)}() {
-return this.${prop.name}
-}`,
-        types: `${prop.name}: ${type}`
+        construct: `    protected ${prop.name}: ${type} = ${oq}${pdef}${oq},`,
+        getters: `
+  public get${prop.name.substr(0, 1).toUpperCase()}${prop.name.substr(1)}() {
+    return this.${prop.name}
+  }`,
+        types: `  ${prop.name}: ${type}`
       }
     }
 
@@ -81,16 +84,23 @@ return this.${prop.name}
     outTypes = types.join('\n')
   }
 
-  const outParent = parent ? `extends ${parent}` : ''
+  const outParent = parent ? `extends ${parent} ` : ''
+
+  // Probably not necessary, as we'll just combine the 2
+  // const outSuper = parent ? 'super(arguments)' : ''
+  const outSuper = ''
 
   const outClass = `
 interface I${key} ${outParent} {
 ${outTypes}
 }
-class ${key} ${outParent} implements I${key} {
+
+class ${key} ${outParent}implements I${key} {
   constructor(
 ${outProps}
-  )
+  ) {
+    ${outSuper}
+  }
 ${outGetters}
 }`
 
