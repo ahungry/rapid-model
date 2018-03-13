@@ -1,0 +1,100 @@
+{
+  "lintOptions": {
+    "typeCheck": true
+  },
+  "extends": "tslint-config-standard",
+  "rules": {
+    "object-literal-sort-keys": true,
+    "no-unused-expression": false,
+    "indent": [true, "spaces", 2],
+    "ter-indent": [
+      true,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "cyclomatic-complexity": [
+      true,
+      10
+    ],
+    "newline-before-return": true,
+    "no-parameter-properties": false,
+    "no-parameter-reassignment": false,
+    "no-unused-variable": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "member-access": true,
+    "only-arrow-functions": [
+      true,
+      "allow-declarations",
+      "allow-named-functions"
+    ],
+    "completed-docs": false,
+    "no-any": true,
+    "no-magic-numbers": false,
+    "no-non-null-assertion": false,
+    "no-null-keyword": false,
+    "no-require-imports": false,
+    "no-unbound-method": false,
+    "no-unnecessary-qualifier": true,
+    "no-use-before-declare": false,
+    "no-void-expression": false,
+    "ordered-imports": [true, {
+      "grouped-imports": true,
+      "import-sources-order": "lowercase-first"
+    }],
+    "prefer-function-over-method": false,
+    "strict-type-predicates": false,
+    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "triple-equals": [
+      true,
+      "allow-undefined-check"
+    ],
+    "typedef": false,
+    "ban": [
+      true,
+      [
+        "describe",
+        "only"
+      ],
+      [
+        "it",
+        "only"
+      ]
+    ],
+    "interface-name": false,
+    "file-header": [
+      false,
+      ""
+    ],
+    "max-classes-per-file": false,
+    "max-line-length": [
+      true,
+      120
+    ],
+    "member-ordering": [
+      true,
+      "public-before-private",
+      "static-before-instance",
+      "variables-before-functions"
+    ],
+    "newline-per-chained-call": false,
+    "no-console": false,
+    "no-switch-case-fall-through": true,
+    "strict-boolean-expressions": [
+      true,
+      "allow-boolean-or-undefined"
+    ],
+    "switch-default": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ]
+  }
+}

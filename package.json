@@ -1,0 +1,27 @@
+{
+  "name": "rapid-model",
+  "version": "1.0.0",
+  "description": "Quickly generate models from swagger/OpenAPI files.",
+  "main": "index.js",
+  "repository": "https://github.com/ahungry/rapid-model",
+  "author": "Matthew Carter",
+  "license": "GPL-3.0-with-autoconf-exception",
+  "private": false,
+  "scripts": {
+    "go": "./node_modules/.bin/ts-node ./src/index.ts",
+    "lint": "./node_modules/.bin/tslint --project tsconfig.json ./src/**/*",
+    "tsc": "./node_modules/.bin/tsc"
+  },
+  "dependencies": {
+    "ts-node": "^5.0.1",
+    "tsc": "^1.20150623.0",
+    "typescript": "^2.7.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^22.2.0",
+    "@types/node": "^9.4.7",
+    "jest": "^22.4.2",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0"
+  }
+}
