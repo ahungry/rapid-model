@@ -16,13 +16,28 @@ const models = _.get(swag, 'definitions')
 
 const genModelFn = (key: string, iter: number) => {
   const model = models[key]
-  const { properties } = model
+  let { properties } = model
   const props: SwagDefPropObj[] = []
   let outTypes: string = ''
   let outProps: string = ''
   let outGetters: string = ''
 
-  console.log(properties)
+  // It's possible properties isn't defined and instead allOf is
+  // this usually indicates a def is extending another in some way.
+  let parent: string
+
+  if (_.has(model, 'allOf')) {
+    const refs = R.pluck('$ref')(model.allOf) as string[]
+    parent = R.last(refs[0].split('/'))
+
+    const allOfFn = (swagDef: SwagDef) => {
+      if (_.has(swagDef, 'properties')) {
+        properties = { ...properties, ...swagDef.properties }
+      }
+    }
+
+    R.map(allOfFn, model.allOf)
+  }
 
   if (typeof properties === 'object') {
     const propFn = (pkey: string, piter: number) => {
@@ -66,11 +81,13 @@ return this.${prop.name}
     outTypes = types.join('\n')
   }
 
+  const outParent = parent ? `extends ${parent}` : ''
+
   const outClass = `
-interface I${key} {
+interface I${key} ${outParent} {
 ${outTypes}
 }
-class ${key} implements I${key} {
+class ${key} ${outParent} implements I${key} {
   constructor(
 ${outProps}
   )
